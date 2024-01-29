@@ -46,9 +46,24 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        assert isinstance(page, int) and page > 0
-        assert isinstance(page_size, int) and page_size > 0
+        """
+        Paginates the dataset based on the given page and page size.
+
+        Args:
+            page (int): The current page (1-indexed).
+            page_size (int): The number of items per page.
+
+        Returns:
+            List[List]: The dataset page for the requested page.
+        """
+        assert isinstance(page, int) and page > 0, "page must be a positive integer"
+        assert isinstance(page_size, int) and page_size > 0, "page_size must be a positive integer"
+
         start_index, end_index = index_range(page, page_size)
-        if start_index >= len(self.dataset()):
+
+        dataset = self.dataset()
+
+        if start_index >= len(dataset):
             return []
-        return self.dataset()[start_index:end_index]
+
+        return dataset[start_index:end_index]
