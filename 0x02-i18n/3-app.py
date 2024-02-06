@@ -2,12 +2,12 @@
 """
 function to parametrize your templates
 """
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_babel import Babel, _
 
 app = Flask(__name__)
-
-# Instantiate the Babel object
+app.config.from_object(Config)
+app.url_map.strict_slashes = False
 babel = Babel(app)
 
 
